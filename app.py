@@ -46,6 +46,7 @@ st.subheader('Valorile numerice lipsa vor fi inlocuite cu media tuturor valorilo
 numeric_cols = df.select_dtypes(include=[np.number]).columns.values
 for col in numeric_cols:
     df_filled[col].fillna(df_filled[col].median(), inplace=True)
+print(df_filled)
 
 # Valori non-numerice
 st.subheader('Valorile non-numerice lipsa vor fi inlocuite string-ul _NOT SPECIFIED_')
@@ -55,6 +56,12 @@ for col in non_numeric_cols:
 
 # Afisare date dupa inlocuire valori lipsa
 st.write(df_filled.isna().sum())
+
+st.subheader('Heatmap - valori lipsa (Dupa inlocuire)')
+cols = df_filled.columns
+fig, ax = plt.subplots()
+sns.heatmap(df_filled[cols].isnull(), cmap=sns.color_palette(colours), ax=ax)
+st.pyplot(fig)
 
 # Hist1
 st.subheader('Histograma -  Durata creditului in luni')
