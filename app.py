@@ -82,7 +82,9 @@ st.write(df_filled.isna().sum())
 # Hist1
 st.write("""Pentru preprocesarea datelor, se va folosi Label Encoder, ce are ca scop transformarea valorilor non-numerice in valori numerice. 
 Astfel, dataframe-ul folosit va contine doar valori numerice. 
-La final, se va realiza un grafic ce afiseaza frecventa de aparitie a fiecarei durate de credit masurata in luni.""")
+La final, se va realiza un grafic ce afiseaza frecventa de aparitie a fiecarei durate de credit masurata in luni.
+Putem spune ca acele credite ce au durate mai lungi de timp au o frecventa de aparitie redusa, in comparatie
+cu creditele ce au intre 10 si 15 luni.""")
 st.subheader('Histograma -  Durata creditului in luni')
 fig, ax = plt.subplots()
 df['Duration in months'].plot(kind='hist', ax=ax)
@@ -91,7 +93,7 @@ st.pyplot(fig)
 df_transform = df[['Age in years', 'Duration in months', 'personal_status', 'Credit amount', 'Number of existing credits at this bank']]
 
 # Label Encoding pentru datele non-numerice - acestea vor fi transformate in valori numerice
-st.subheader('Label Encoder')
+# st.subheader('Label Encoder')
 label_encoder = LabelEncoder()
 df_transform['personal_status'] = label_encoder.fit_transform(df_transform['personal_status'].astype(str))
 
