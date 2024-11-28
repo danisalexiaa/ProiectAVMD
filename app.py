@@ -99,24 +99,26 @@ df_scaled = pd.DataFrame(df_scaled, columns=df_transform.columns)
 
 st.write(df_scaled)
 
-# Plot histogram of scaled 'Duration in months'
-st.subheader('Scaled Duration in Months Histogram')
+# Plot 'Duration in months'
+st.subheader('Histograma dupa scalare')
 fig, ax = plt.subplots()
 df_scaled['Duration in months'].plot(kind='hist', ax=ax)
 st.pyplot(fig)
 
-# Boxplot for 'Duration in months'
-st.subheader('Boxplot for Duration in Months')
+# Boxplot 'Duration in months'
+st.subheader('Boxplot Duration in Months')
 fig, ax = plt.subplots()
 df.boxplot(column=['Duration in months'], ax=ax)
 st.pyplot(fig)
 
 # Skewness and Kurtosis
-st.subheader('Skewness and Kurtosis for Credit Amount')
-st.write(f"Skewness: {skew(df['Credit amount'])}")
-st.write(f"Kurtosis: {kurtosis(df['Credit amount'])}")
+# st.subheader('Skewness si Kurtosis pentru variabila "Credit amount"')
+# st.write(f"Skewness: {skew(df['Credit amount'])}")
+# st.write(f"Kurtosis: {kurtosis(df['Credit amount'])}")
 
-# Scatter plots for correlation
+print(df.select_dtypes(include=[np.number]).kurtosis())
+
+# Scatter plots - core;atie
 st.subheader('Scatter Plot: Duration vs Credit Amount')
 fig, ax = plt.subplots()
 df_transform.plot(x='Duration in months', y='Credit amount', kind='scatter', ax=ax)
