@@ -106,7 +106,9 @@ df_scaled = pd.DataFrame(df_scaled, columns=df_transform.columns)
 
 st.write(df_scaled)
 st.write("""Se doreste scalarea datelor pentru a le normaliza într-un interval [0, 1], ceea ce poate fi util pentru modelele de învățare automata, 
-care beneficiază de date normalizate. Distributia datelor scalate se poate urmari in graficul afisat.""")
+care beneficiază de date normalizate, ce au aceeasi scala. Distributia datelor scalate se poate urmari in graficul afisat.
+Putem spune ca valorile extreme se afla in partea din dreapta a graficului, reprezentand valorile extreme superioare.
+Se observa ca majoritatea creditelor au un numar scazut de luni ca durata.""")
 # Plot 'Duration in months'
 st.subheader('Histograma dupa scalare')
 fig, ax = plt.subplots()
@@ -142,8 +144,13 @@ fig, ax = plt.subplots()
 df_transform.plot(x='Duration in months', y='Credit amount', kind='scatter', ax=ax)
 st.pyplot(fig)
 
+st.write(""" Se observa ca majoritatea creditelor au valori mici si nu au o durata foarte lunga, fiind concentrate in zona 10 luni - 2000 u.m.
+Exista insa, si o valoare extrema, ce ne ajuta sa identificam un credit cu o valoare foarte mare, dar care are o durata de mai putin de 10 luni.""")
+
 st.subheader('Scatter Plot: Number of Credits vs Age')
-st.write('Urmatorul scatter plot foloseste variabilele ce indica numarul de credite existente si varsta, pentru a identifica o posibila relatie intre aceste doua variabile.')
+st.write("""Urmatorul scatter plot foloseste variabilele ce indica numarul de credite existente si varsta, pentru a identifica o posibila relatie intre aceste doua variabile.
+Majoritatea persoanelor au un singur credit, indiferent de varsta. 
+Putem spune ca persoanele in varsta detin mai putine credite fata de persoanele mai tinere.""")
 fig, ax = plt.subplots()
 df_transform.plot(x='Number of existing credits at this bank', y='Age in years', kind='scatter', ax=ax)
 st.pyplot(fig)
