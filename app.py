@@ -8,46 +8,46 @@ from scipy.stats import kurtosis, skew
 
 import streamlit as st
 
-# Load the dataset
+# Incarcare set de date
 @st.cache
 def load_data():
     return pd.read_csv('risk.csv')
 
-# Data loading and overview
 df = load_data()
-st.title('Data Analysis and Visualization')
+st.title('Preprocesarea, transformarea si analiza datelor referitoare la clienti si credite bancare')
 
-# Display dataset
-if st.checkbox('Show Dataset'):
+# Afisare set de date
+if st.checkbox('Afisare set de date'):
     st.write(df)
 
-# Describe the dataset
-st.subheader('Dataset Overview')
-st.write(df.describe(include="all"))
+# Descrierea statistica a setului de date
+# st.subheader('Vizualizare set de date')
+# st.write(df.describe(include="all"))
 
-# Check for missing values
-st.subheader('Missing Values')
+# Verificarea datelor lipsa
+st.subheader('Date lipsa')
 missing_values = df.isna().sum()
 st.write(missing_values)
 
-# Heatmap of missing values
-st.subheader('Missing Values Heatmap')
+# Heatmap pentru valorile lipsa
+st.subheader('Heatmap - valori lipsa')
 cols = df.columns
 colours = ['#000099', '#ffff00']
 fig, ax = plt.subplots()
 sns.heatmap(df[cols].isnull(), cmap=sns.color_palette(colours), ax=ax)
 st.pyplot(fig)
 
-# Handle missing values
-st.subheader('Handle Missing Values')
+# Inlocuirea valorilor lipsa
+st.subheader('Inlocuirea valorilor lipsa')
 df_filled = df.copy()
 
-# Fill missing values for numeric columns
+# Valori numerice
+st.subheader('Valorile numerice lipsa vor fi inlocuite cu media tuturor valorilor de pe coloana respectiva')
 numeric_cols = df.select_dtypes(include=[np.number]).columns.values
 for col in numeric_cols:
     df_filled[col].fillna(df_filled[col].median(), inplace=True)
 
-# Fill missing values for non-numeric columns
+# Valori non-numerice
 non_numeric_cols = df.select_dtypes(exclude=[np.number]).columns.values
 for col in non_numeric_cols:
     df_filled[col].fillna('_NOT SPECIFIED_', inplace=True)
