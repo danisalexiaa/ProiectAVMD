@@ -31,6 +31,7 @@ st.write(missing_values)
 
 # Heatmap pentru valorile lipsa
 st.subheader('Heatmap - valori lipsa')
+st.write('Acest heatmap evidentiaza locurile din setul de date unde exista valori lipsa')
 cols = df.columns
 colours = ['#000099', '#ffff00']
 fig, ax = plt.subplots()
@@ -38,18 +39,18 @@ sns.heatmap(df[cols].isnull(), cmap=sns.color_palette(colours), ax=ax)
 st.pyplot(fig)
 
 # Inlocuirea valorilor lipsa
-st.subheader('Inlocuirea valorilor lipsa')
+st.sunheader('Inlocuirea valorilor lipsa')
 df_filled = df.copy()
 
 # Valori numerice
-st.subheader('Valorile numerice lipsa vor fi inlocuite cu media tuturor valorilor de pe coloana respectiva')
+st.write('Valorile numerice lipsa vor fi inlocuite cu media tuturor valorilor de pe coloana respectiva')
 numeric_cols = df.select_dtypes(include=[np.number]).columns.values
 for col in numeric_cols:
     df_filled[col].fillna(df_filled[col].median(), inplace=True)
 print(df_filled)
 
 # Valori non-numerice
-st.subheader('Valorile non-numerice lipsa vor fi inlocuite string-ul _NOT SPECIFIED_')
+st.write('Valorile non-numerice lipsa vor fi inlocuite string-ul _NOT SPECIFIED_')
 non_numeric_cols = df.select_dtypes(exclude=[np.number]).columns.values
 for col in non_numeric_cols:
     df_filled[col].fillna('_NOT SPECIFIED_', inplace=True)
@@ -65,8 +66,8 @@ st.write(df_filled.isna().sum())
 
 #############################################################
 #merge
-df1 = df[['id', 'Job']]
-print(df1)
+# df1 = df[['id', 'Job']]
+# print(df1)
 
 #limita_durata = int(input("Introduceti limita pentru durata in luni a creditului: "))
 # limita_durata = 12
@@ -76,9 +77,12 @@ print(df1)
 # df3['Purpose of the credit'].value_counts().plot.bar()
 
 
-plt.show()
+# plt.show()
 
 # Hist1
+st.write("""Pentru preprocesarea datelor, se va folosi Label Encoder, ce are ca scop transformarea valorilor non-numerice in valori numerice. 
+Astfel, dataframe-ul folosit va contine doar valori numerice. 
+La final, se va realiza un grafic ce afiseaza frecventa de aparitie a fiecarei durate de credit masurata in luni."""
 st.subheader('Histograma -  Durata creditului in luni')
 fig, ax = plt.subplots()
 df['Duration in months'].plot(kind='hist', ax=ax)
@@ -98,7 +102,8 @@ df_scaled = scaler.fit_transform(df_transform)
 df_scaled = pd.DataFrame(df_scaled, columns=df_transform.columns)
 
 st.write(df_scaled)
-
+st.write("""Se doreste scalarea datelor pentru a le normaliza într-un interval [0, 1], ceea ce poate fi util pentru modelele de învățare automata, 
+care beneficiază de date normalizate. Distributia datelor scalate se poate urmari in graficul afisat.""")
 # Plot 'Duration in months'
 st.subheader('Histograma dupa scalare')
 fig, ax = plt.subplots()
