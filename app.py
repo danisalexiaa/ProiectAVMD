@@ -105,10 +105,11 @@ fig, ax = plt.subplots()
 df_scaled['Duration in months'].plot(kind='hist', ax=ax)
 st.pyplot(fig)
 
-st.subheader('Se doreste vizualizarea valorilor extreme in ceea ce priveste numarul de luni pe care s-a deschis un credit. 
+st.write("""Se doreste vizualizarea valorilor extreme in ceea ce priveste numarul de luni pe care s-a deschis un credit. 
 Pentru acest lucru, am folosit un boxplot, unde se pot observa valorile extreme in partea de sus a graficului. 
 Observam ca mediana este aproape de 20 (luni), iar mustatile graficului indica valorile ce nu fac parte din medie, insa sunt considerate normale. 
-Putem spune ca datele sunt simetrice (mediana se afla in zona de mijloc a box-ului), insa exista outliers.')
+Putem spune ca datele sunt simetrice (mediana se afla in zona de mijloc a box-ului), insa exista outliers.""")
+
 df.boxplot(column=['Duration in months'])
 
 # Boxplot 'Duration in months'
@@ -124,8 +125,8 @@ st.pyplot(fig)
 
 print(df.select_dtypes(include=[np.number]).kurtosis())
 
-st.subheader('Mai departe, am ales generarea unei scatter plot pentru analiza relatiei dintre variabilele Duration in months si Credit amount. 
-Acest grafic ar putea raspunde la intrebarile: Persoanele ce isi iau credite pe o durata mai lunga tind sa isi ia un credit cu o valoare mai mare?/Exista credite foarte mari dar pe durate scurte?')
+st.subheader("""Mai departe, am ales generarea unei scatter plot pentru analiza relatiei dintre variabilele Duration in months si Credit amount. 
+Acest grafic ar putea raspunde la intrebarile: Persoanele ce isi iau credite pe o durata mai lunga tind sa isi ia un credit cu o valoare mai mare?/Exista credite foarte mari dar pe durate scurte?""")
 
 # Scatter plots - corelatie
 st.subheader('Scatter Plot: Duration vs Credit Amount')
