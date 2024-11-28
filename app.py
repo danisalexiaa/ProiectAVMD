@@ -48,33 +48,33 @@ for col in numeric_cols:
     df_filled[col].fillna(df_filled[col].median(), inplace=True)
 
 # Valori non-numerice
+st.subheader('Valorile non-numerice lipsa vor fi inlocuite string-ul _NOT SPECIFIED_')
 non_numeric_cols = df.select_dtypes(exclude=[np.number]).columns.values
 for col in non_numeric_cols:
     df_filled[col].fillna('_NOT SPECIFIED_', inplace=True)
 
-# Display missing values after handling
+# Afisare date dupa inlocuire valori lipsa
 st.write(df_filled.isna().sum())
 
-# Display histogram of 'Duration in months'
-st.subheader('Histogram of Duration in Months')
+# Hist1
+st.subheader('Histograma -  Durata creditului in luni')
 fig, ax = plt.subplots()
 df['Duration in months'].plot(kind='hist', ax=ax)
 st.pyplot(fig)
 
-# Feature transformations
-st.subheader('Feature Transformations')
 df_transform = df[['Age in years', 'Duration in months', 'personal_status', 'Credit amount', 'Number of existing credits at this bank']]
 
-# Label Encoding for categorical data
+# Label Encoding pentru datele non-numerice - acestea vor fi transformate in valori numerice
+st.subheader('Label Encoder')
 label_encoder = LabelEncoder()
 df_transform['personal_status'] = label_encoder.fit_transform(df_transform['personal_status'].astype(str))
 
-# Scaling using MinMaxScaler
+# MinMaxScaler
+st.subheader('Scalare date cu MinMax')
 scaler = MinMaxScaler()
 df_scaled = scaler.fit_transform(df_transform)
 df_scaled = pd.DataFrame(df_scaled, columns=df_transform.columns)
 
-# Display the transformed data
 st.write(df_scaled)
 
 # Plot histogram of scaled 'Duration in months'
