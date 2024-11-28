@@ -1,1 +1,4 @@
 seaborn
+sklearn
+scipy
+streamlit
