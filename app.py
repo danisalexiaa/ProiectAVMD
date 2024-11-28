@@ -39,7 +39,7 @@ sns.heatmap(df[cols].isnull(), cmap=sns.color_palette(colours), ax=ax)
 st.pyplot(fig)
 
 # Inlocuirea valorilor lipsa
-st.sunheader('Inlocuirea valorilor lipsa')
+st.subheader('Inlocuirea valorilor lipsa')
 df_filled = df.copy()
 
 # Valori numerice
