@@ -69,11 +69,14 @@ df1 = df[['id', 'Job']]
 print(df1)
 
 #limita_durata = int(input("Introduceti limita pentru durata in luni a creditului: "))
-limita_durata = 12
-df2 = df[df['Duration in months'] < limita_durata]
-#print(df2)
-df3 = pd.merge(df1, df2, left_on=df1['id'].astype(int), right_on=df2['id'])
-df3['Purpose of the credit'].value_counts().plot.bar()
+# limita_durata = 12
+# df2 = df[df['Duration in months'] < limita_durata]
+# #print(df2)
+# df3 = pd.merge(df1, df2, left_on=df1['id'].astype(int), right_on=df2['id'])
+# df3['Purpose of the credit'].value_counts().plot.bar()
+
+df.boxplot(column=['Duration in months'])
+plt.show()
 
 # Hist1
 st.subheader('Histograma -  Durata creditului in luni')
