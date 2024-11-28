@@ -57,11 +57,22 @@ for col in non_numeric_cols:
 # Afisare date dupa inlocuire valori lipsa
 st.write(df_filled.isna().sum())
 
-st.subheader('Heatmap - valori lipsa (Dupa inlocuire)')
-cols = df_filled.columns
-fig, ax = plt.subplots()
-sns.heatmap(df_filled[cols].isnull(), cmap=sns.color_palette(colours), ax=ax)
-st.pyplot(fig)
+# st.subheader('Heatmap - valori lipsa (Dupa inlocuire)')
+# cols = df_filled.columns
+# fig, ax = plt.subplots()
+# sns.heatmap(df_filled[cols].isnull(), cmap=sns.color_palette(colours), ax=ax)
+# st.pyplot(fig)
+
+#############################################################
+#merge
+df1 = df[['id', 'Job']]
+print(df1)
+
+limita_durata = int(input("Introduceti limita pentru durata in luni a creditului: "))
+df2 = df[df['Duration in months'] < limita_durata]
+#print(df2)
+df3 = pd.merge(df1, df2, left_on=df1['id'].astype(int), right_on=df2['id'])
+df3['Purpose of the credit'].value_counts().plot.bar()
 
 # Hist1
 st.subheader('Histograma -  Durata creditului in luni')
