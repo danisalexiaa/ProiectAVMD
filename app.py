@@ -140,7 +140,7 @@ df_transform.plot(x='Duration in months', y='Credit amount', kind='scatter', ax=
 st.pyplot(fig)
 
 st.subheader('Scatter Plot: Number of Credits vs Age')
-st.subheader('Urmatorul scatter plot foloseste variabilele ce indica numarul de credite existente si varsta, pentru a identifica o posibila relatie intre aceste doua variabile.')
+st.write('Urmatorul scatter plot foloseste variabilele ce indica numarul de credite existente si varsta, pentru a identifica o posibila relatie intre aceste doua variabile.')
 fig, ax = plt.subplots()
 df_transform.plot(x='Number of existing credits at this bank', y='Age in years', kind='scatter', ax=ax)
 st.pyplot(fig)
