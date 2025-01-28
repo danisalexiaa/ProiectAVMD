@@ -237,22 +237,32 @@ df.loc[(df['Credit history'] == 'existing paid'), 'Risk'] = 'Scazut'
 
 X = df[['Duration in months', 'Credit history', 'Credit amount', 
         'Installment rate in percentage of disposable income', 
-        'Age in years', 'Number of existing credits at this bank']]  # Exemplu de variabile independente
-y = df['Risk']  # Variabila dependentă
+        'Age in years', 'Number of existing credits at this bank']]
+y = df['Risk']
 
-# Transformăm variabilele categorice în variabile numerice (de exemplu, folosind LabelEncoder pentru 'Credit history' și 'Risk')
-label_encoder = LabelEncoder()
-
-# Aplicăm LabelEncoder pe variabilele categorice
 X['Credit history'] = label_encoder.fit_transform(X['Credit history'])
-y = label_encoder.fit_transform(y)  # Transformăm și 'Risk' în valori numerice (0 - Scăzut, 1 - Mediul, 2 - Ridicat)
+y = label_encoder.fit_transform(y)
 
+# Împărțirea datelor înainte de preprocesare
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-model = LogisticRegression(max_iter=1000)  # Setăm max_iter pentru a asigura că modelul convergă
+# Aplicarea scalării doar pe setul de antrenament (și apoi pe setul de test)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)  # fit_transform doar pe antrenament
+X_test_scaled = scaler.transform(X_test)  # transform pe setul de test, nu fit
 
-
-model.fit(X_train, y_train)
+# Creăm și antrenăm modelul
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train_scaled, y_train)
 
 # Predicția pe setul de test
-y_pred = model.predict(X_test)
+y_pred = model.predict(X_test_scaled)
+
+# Evaluarea modelului
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Afisarea rezultatelor
+print(f"Precizia modelului: {accuracy * 100:.2f}%")
+print("Matricea de confuzie:")
+print(conf_matrix)
