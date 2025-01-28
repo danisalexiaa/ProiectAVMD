@@ -247,23 +247,3 @@ label_encoder = LabelEncoder()
 X['Credit history'] = label_encoder.fit_transform(X['Credit history'])
 y = label_encoder.fit_transform(y)  # Transformăm și 'Risk' în valori numerice (0 - Scăzut, 1 - Mediul, 2 - Ridicat)
 
-# Împărțirea setului de date în seturi de antrenament și test (80% antrenament, 20% test)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Crearea modelului de regresie logistică
-model = LogisticRegression(max_iter=1000)  # Setăm max_iter pentru a asigura că modelul convergă
-
-# Antrenarea modelului pe datele de antrenament
-model.fit(X_train, y_train)
-
-# Predicția pe setul de test
-y_pred = model.predict(X_test)
-
-# Evaluarea modelului
-accuracy = accuracy_score(y_test, y_pred)
-conf_matrix = confusion_matrix(y_test, y_pred)
-
-# Afisarea rezultatelor
-print(f"Precizia modelului: {accuracy * 100:.2f}%")
-print("Matricea de confuzie:")
-print(conf_matrix)
