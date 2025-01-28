@@ -235,4 +235,4 @@ df.loc[(df['Credit history'] == 'critical/other existing credit') & (df['Credit 
 df.loc[(df['Installment rate in percentage of disposable income'] > 2), 'Risk'] = 'Mediu'
 df.loc[(df['Credit history'] == 'existing paid'), 'Risk'] = 'Scazut'
 
-print(df)
+print(df.head())
