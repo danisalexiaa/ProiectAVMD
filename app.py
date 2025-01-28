@@ -247,3 +247,4 @@ label_encoder = LabelEncoder()
 X['Credit history'] = label_encoder.fit_transform(X['Credit history'])
 y = label_encoder.fit_transform(y)  # Transformăm și 'Risk' în valori numerice (0 - Scăzut, 1 - Mediul, 2 - Ridicat)
 
+st.write(df)
