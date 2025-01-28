@@ -252,6 +252,9 @@ y = label_encoder.fit_transform(y)
 # Împărțirea datelor înainte de preprocesare
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+print(X_train.isnull().sum())  # Verifică pentru valori lipsă în X_train
+print(X_test.isnull().sum())   # Verifică pentru valori lipsă în X_test
+
 # Aplicarea scalării doar pe setul de antrenament (și apoi pe setul de test)
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)  # fit_transform doar pe antrenament
@@ -272,3 +275,4 @@ conf_matrix = confusion_matrix(y_test, y_pred)
 print(f"Precizia modelului: {accuracy * 100:.2f}%")
 print("Matricea de confuzie:")
 print(conf_matrix)
+
