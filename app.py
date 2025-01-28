@@ -226,7 +226,7 @@ else:
 
 
 # Regresie logistica
- st.write("""Creare variabila noua 'Risk', pe baza altor variabile asociate""")
+st.write("""Creare variabila noua 'Risk', pe baza altor variabile asociate""")
 
 df['Risk'] = 'Scăzut'  # Inițializăm toți clienții cu risc scăzut
 
