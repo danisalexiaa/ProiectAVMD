@@ -18,6 +18,12 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 
 import streamlit as st
 
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.preprocessing import StandardScaler
+
 # Incarcare set de date
 @st.cache
 def load_data():
