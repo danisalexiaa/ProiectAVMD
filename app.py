@@ -163,9 +163,9 @@ st.pyplot(fig)
 
 # Preprocesare date pentru regresie liniară
 st.subheader('Regresie Liniară: Age in years vs Credit amount')
-if 'Duration in months' in df.columns and 'Credit amount' in df.columns:
+if 'Number of existing credits at this bank' in df.columns and 'Credit amount' in df.columns:
     # Selectarea variabilei independente și variabilei dependente
-    X = df[['Duration in months']]
+    X = df[['Number of existing credits at this bank']]
     y = df['Credit amount']
     
     # Verificare și completare valori lipsă
@@ -192,7 +192,7 @@ if 'Duration in months' in df.columns and 'Credit amount' in df.columns:
     st.write(f"Coeficientul de determinare (R²): {r2:.2f}")
     
     # Afișarea coeficienților
-    st.write(f"Coeficientul pentru 'Duration in months': {model.coef_[0]:.2f}")
+    st.write(f"Coeficientul pentru 'Number of existing credits at this bank': {model.coef_[0]:.2f}")
     st.write(f"Interceptul modelului: {model.intercept_:.2f}")
     
     # Vizualizarea predicțiilor
@@ -206,4 +206,4 @@ if 'Duration in months' in df.columns and 'Credit amount' in df.columns:
     ax.legend()
     st.pyplot(fig)
 else:
-    st.write("Variabilele 'Duration in months' și 'Credit amount' nu sunt prezente în setul de date.")
+    st.write("Variabilele 'Number of existing credits at this bank' și 'Credit amount' nu sunt prezente în setul de date.")
