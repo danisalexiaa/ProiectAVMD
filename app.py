@@ -247,4 +247,5 @@ label_encoder = LabelEncoder()
 X['Credit history'] = label_encoder.fit_transform(X['Credit history'])
 y = label_encoder.fit_transform(y)  # Transformăm și 'Risk' în valori numerice (0 - Scăzut, 1 - Mediul, 2 - Ridicat)
 
-st.write(df)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
