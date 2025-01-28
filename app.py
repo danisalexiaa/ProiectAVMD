@@ -249,10 +249,8 @@ y = df['Risk']
 X['Credit history'] = label_encoder.fit_transform(X['Credit history'])
 y = label_encoder.fit_transform(y)
 
-# Împărțirea datelor înainte de preprocesare
+st.write("Am impartit datele inainte de preprocesare si am verificat sa nu existe valori lipsa pentru variabile.")
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-
 
 X_train.fillna(X_train.mean(), inplace=True)
 X_test.fillna(X_test.mean(), inplace=True)
@@ -261,18 +259,21 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)  # fit_transform doar pe antrenament
 X_test_scaled = scaler.transform(X_test)  # transform pe setul de test, nu fit
 
-# Creăm și antrenăm modelul
+st.write("Creare si antrenare model")
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train_scaled, y_train)
 
-# Predicția pe setul de test
+st.write("Am folosit predict pentru predictia pe setul meu de date")
 y_pred = model.predict(X_test_scaled)
 
-# Evaluarea modelului
+st.write("Am evaluat modelul cu ajutorul acuratetii si a matricei de confuzie")
 accuracy = accuracy_score(y_test, y_pred)
 conf_matrix = confusion_matrix(y_test, y_pred)
 
-# Afisarea rezultatelor
+st.write("Rezultate:")
 st.write(f"Precizia modelului: {accuracy * 100:.2f}%")
+st.write("Precizia modelului este de 88%, ceea ce reprezinta o valoare buna pentru model. Acest lucru inseamna ca moelul a prezis corect 88% dintre valori")
 st.write("Matricea de confuzie:")
 st.write(conf_matrix)
+st.write("""Pentru matricea de confuzie, se observa ca majoritatea valorilor au fost prezise corect. Ca exemplu:
+Pe prima linie, corespondenta nivelului 'Scazut', 26 de predictii au fost corecte pentru riscul scazut, una gresita, etichetata ca 'Mediu', 3 gresite, etichetate ca 'Ridicat', si 0 gresite pentru categoria 'Necunoscut'""")
