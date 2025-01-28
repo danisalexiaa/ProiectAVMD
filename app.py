@@ -252,9 +252,10 @@ y = label_encoder.fit_transform(y)
 # Împărțirea datelor înainte de preprocesare
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-st.write(X_train.isnull().sum())  # Verifică pentru valori lipsă în X_train
-st.write(X_test.isnull().sum())   # Verifică pentru valori lipsă în X_test
+
 
 X_train.fillna(X_train.mean(), inplace=True)
 X_test.fillna(X_test.mean(), inplace=True)
 
+st.write(X_train.isnull().sum())  # Verifică pentru valori lipsă în X_train
+st.write(X_test.isnull().sum())   # Verifică pentru valori lipsă în X_test
