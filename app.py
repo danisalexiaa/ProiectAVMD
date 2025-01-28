@@ -249,3 +249,10 @@ y = label_encoder.fit_transform(y)  # Transformăm și 'Risk' în valori numeric
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+model = LogisticRegression(max_iter=1000)  # Setăm max_iter pentru a asigura că modelul convergă
+
+
+model.fit(X_train, y_train)
+
+# Predicția pe setul de test
+y_pred = model.predict(X_test)
