@@ -161,46 +161,49 @@ fig, ax = plt.subplots()
 df_transform.plot(x='Number of existing credits at this bank', y='Age in years', kind='scatter', ax=ax)
 st.pyplot(fig)
 
-st.subheader('Regresie Liniară')
-target = st.selectbox('Alege variabila țintă pentru regresie liniară', df.columns)
-features = st.multiselect('Alege variabilele explicative (independente)', [col for col in df.columns if col != target])
-
-if target and features:
-    # Pregătirea datelor
-    X = df[features]
-    y = df[target]
+# Preprocesare date pentru regresie liniară
+st.subheader('Regresie Liniară: Age in years vs Credit amount')
+if 'Age in years' in df.columns and 'Credit amount' in df.columns:
+    # Selectarea variabilei independente și variabilei dependente
+    X = df[['Age in years']]
+    y = df['Credit amount']
     
-    # Împărțirea datelor în seturi de antrenare și testare
+    # Verificare și completare valori lipsă
+    if X.isna().sum().sum() > 0 or y.isna().sum() > 0:
+        st.write("Există valori lipsă în date. Le completăm cu mediana.")
+        X.fillna(X.median(), inplace=True)
+        y.fillna(y.median(), inplace=True)
+    
+    # Împărțirea setului de date în seturi de antrenare și testare
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    # Construirea și antrenarea modelului
+    
+    # Construirea modelului de regresie liniară
     model = LinearRegression()
     model.fit(X_train, y_train)
-
+    
     # Predicții
     y_pred = model.predict(X_test)
-
+    
     # Evaluarea modelului
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     
     st.write(f"Eroare medie pătratică (MSE): {mse:.2f}")
     st.write(f"Coeficientul de determinare (R²): {r2:.2f}")
-
+    
     # Afișarea coeficienților
-    coef_df = pd.DataFrame({
-        'Caracteristică': features,
-        'Coeficient': model.coef_
-    })
-    st.write('Coeficienții modelului:')
-    st.write(coef_df)
-
+    st.write(f"Coeficientul pentru 'Age in years': {model.coef_[0]:.2f}")
+    st.write(f"Interceptul modelului: {model.intercept_:.2f}")
+    
     # Vizualizarea predicțiilor
-    st.subheader('Grafic Predicții vs Valori Reale')
+    st.subheader('Grafic: Valori Reale vs Predicții')
     fig, ax = plt.subplots()
-    ax.scatter(y_test, y_pred, alpha=0.7)
-    ax.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], '--', color='red')
-    ax.set_xlabel('Valori Reale')
-    ax.set_ylabel('Predicții')
-    ax.set_title('Predicții vs Valori Reale')
+    ax.scatter(X_test, y_test, label='Valori reale', color='blue', alpha=0.6)
+    ax.scatter(X_test, y_pred, label='Predicții', color='red', alpha=0.6)
+    ax.plot(X_test, model.predict(X_test), color='green', label='Regresie liniară')
+    ax.set_xlabel('Age in years')
+    ax.set_ylabel('Credit amount')
+    ax.legend()
     st.pyplot(fig)
+else:
+    st.write("Variabilele 'Age in years' și 'Credit amount' nu sunt prezente în setul de date.")
