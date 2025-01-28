@@ -257,5 +257,22 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 X_train.fillna(X_train.mean(), inplace=True)
 X_test.fillna(X_test.mean(), inplace=True)
 
-st.write(X_train.isnull().sum())  # Verifică pentru valori lipsă în X_train
-st.write(X_test.isnull().sum())   # Verifică pentru valori lipsă în X_test
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)  # fit_transform doar pe antrenament
+X_test_scaled = scaler.transform(X_test)  # transform pe setul de test, nu fit
+
+# Creăm și antrenăm modelul
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train_scaled, y_train)
+
+# Predicția pe setul de test
+y_pred = model.predict(X_test_scaled)
+
+# Evaluarea modelului
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Afisarea rezultatelor
+print(f"Precizia modelului: {accuracy * 100:.2f}%")
+print("Matricea de confuzie:")
+print(conf_matrix)
