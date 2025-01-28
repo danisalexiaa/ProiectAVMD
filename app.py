@@ -12,6 +12,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 # 
 
+# Regresie logistica 
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
 import streamlit as st
 
 # Incarcare set de date
@@ -219,3 +223,15 @@ if 'Duration in months' in df.columns and 'Credit amount' in df.columns:
     st.pyplot(fig)
 else:
     st.write("Variabilele 'Duration in months' si 'Credit amount' nu sunt prezente in setul de date")
+
+
+# Regresie logistica
+
+df['Risk'] = 'Scăzut'  # Inițializăm toți clienții cu risc scăzut
+
+# Condiții pentru a actualiza valoarea riscului
+df.loc[(df['Credit history'] == 'critical/other existing credit') & (df['Credit amount'] > 5000), 'Risk'] = 'Ridicat'
+df.loc[(df['Installment rate in percentage of disposable income'] > 2), 'Risk'] = 'Mediu'
+df.loc[(df['Credit history'] == 'existing paid'), 'Risk'] = 'Scazut'
+
+print(df['Risk'])
