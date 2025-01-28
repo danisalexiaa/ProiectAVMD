@@ -225,7 +225,7 @@ else:
     st.write("Variabilele 'Duration in months' si 'Credit amount' nu sunt prezente in setul de date")
 
 
-# Regresie logistica
+st.write("""Regresia logistica""")
 st.write("""Creare variabila noua 'Risk', pe baza altor variabile asociate""")
 
 df['Risk'] = 'Scăzut'  # Inițializăm toți clienții cu risc scăzut
@@ -235,4 +235,4 @@ df.loc[(df['Credit history'] == 'critical/other existing credit') & (df['Credit 
 df.loc[(df['Installment rate in percentage of disposable income'] > 2), 'Risk'] = 'Mediu'
 df.loc[(df['Credit history'] == 'existing paid'), 'Risk'] = 'Scazut'
 
-print(df['Risk'])
+print(df)
