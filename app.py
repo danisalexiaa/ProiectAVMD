@@ -273,6 +273,6 @@ accuracy = accuracy_score(y_test, y_pred)
 conf_matrix = confusion_matrix(y_test, y_pred)
 
 # Afisarea rezultatelor
-print(f"Precizia modelului: {accuracy * 100:.2f}%")
-print("Matricea de confuzie:")
-print(conf_matrix)
+st.write(f"Precizia modelului: {accuracy * 100:.2f}%")
+st.write("Matricea de confuzie:")
+st.write(conf_matrix)
