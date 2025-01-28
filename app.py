@@ -162,38 +162,50 @@ df_transform.plot(x='Number of existing credits at this bank', y='Age in years',
 st.pyplot(fig)
 
 # Preprocesare date pentru regresie liniară
-st.subheader('Regresie Liniară: Age in years vs Credit amount')
-if 'Number of existing credits at this bank' in df.columns and 'Credit amount' in df.columns:
-    # Selectarea variabilei independente și variabilei dependente
-    X = df[['Number of existing credits at this bank']]
+st.subheader('Regresie Liniara: Age in years vs Credit amount')
+if 'Duration in months' in df.columns and 'Credit amount' in df.columns:
+
+    st.write("""Selectarea variabilei independente și variabilei dependente""")
+
+    X = df[['Duration in months']]
     y = df['Credit amount']
+
+    st.write("""Verificare și completare valori lipsa""")
     
-    # Verificare și completare valori lipsă
     if X.isna().sum().sum() > 0 or y.isna().sum() > 0:
-        st.write("Există valori lipsă în date. Le completăm cu mediana.")
+        st.write("Valorile lipsa sunt completate cu mediana")
         X.fillna(X.median(), inplace=True)
         y.fillna(y.median(), inplace=True)
-    
-    # Împărțirea setului de date în seturi de antrenare și testare
+
+    st.write("""Impartirea setului de date in seturi de antrenare și testare""")
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
-    # Construirea modelului de regresie liniară
+
+    st.write("""Construirea modelului de regresie liniara""")
     model = LinearRegression()
     model.fit(X_train, y_train)
     
-    # Predicții
+    st.write("""Predictii""")
     y_pred = model.predict(X_test)
     
-    # Evaluarea modelului
+    st.write("""Evaluare model cu ajutorul MSE (Mean Standard Error) si R patrat""")
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     
-    st.write(f"Eroare medie pătratică (MSE): {mse:.2f}")
+    st.write(f"Eroare medie pătratica (MSE): {mse:.2f}")
+    st.write("""Valoarea de 6830196.06 reprezinta eroarea medie patratica a modelului. 
+    Este o masura a performantei, aratand cât de mult difera predictiile modelului de valorile reale. 
+    Valorile prezise de model sunt destul de diferite fata de cele reale, pe baza acestui coeficient.""")
     st.write(f"Coeficientul de determinare (R²): {r2:.2f}")
+    st.write("""R2 = 0.36 indica faptul ca modelul explica 36% din variatia valorilor pentru variabila dependentă (Credit amount) folosind variabila preditor (Duration in months). 
+    Este un indicator al puterii explicative a modelului.""")
     
     # Afișarea coeficienților
-    st.write(f"Coeficientul pentru 'Number of existing credits at this bank': {model.coef_[0]:.2f}")
+    st.write(f"Coeficientul pentru 'Duration in months': {model.coef_[0]:.2f}")
+    st.write("""Coeficientul 134.97 arata ca, pentru fiecare luna suplimentara de durata a creditului, valoarea creditului creste în medie, 
+    cu 134.97 unitati monetare""")
     st.write(f"Interceptul modelului: {model.intercept_:.2f}")
+    st.write("""Interceptul este valoarea prezisa a Credit amount atunci când Duration in months este 0. 
+    Desi un credit cu durata de 0 luni nu exista, aceasta valoare servește ca punct de referinta pentru linia regresiei.""")
     
     # Vizualizarea predicțiilor
     st.subheader('Grafic: Valori Reale vs Predicții')
@@ -206,4 +218,4 @@ if 'Number of existing credits at this bank' in df.columns and 'Credit amount' i
     ax.legend()
     st.pyplot(fig)
 else:
-    st.write("Variabilele 'Number of existing credits at this bank' și 'Credit amount' nu sunt prezente în setul de date.")
+    st.write("Variabilele 'Duration in months' si 'Credit amount' nu sunt prezente in setul de date")
