@@ -235,7 +235,7 @@ else:
 
 
 st.write("""Regresia logistica""")
-st.write("""Creare variabila noua 'Risk', pe baza altor variabile asociate""")
+st.write("""Am creat o variabila noua 'Risk', pe baza altor variabile asociate""")
 
 df['Risk'] = 'Scăzut'  # Inițializăm toți clienții cu risc scăzut
 
@@ -262,11 +262,9 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)  # fit_transform doar pe antrenament
 X_test_scaled = scaler.transform(X_test)  # transform pe setul de test, nu fit
 
-st.write("Creare si antrenare model")
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train_scaled, y_train)
 
-st.write("Am folosit predict pentru predictia pe setul meu de date")
 y_pred = model.predict(X_test_scaled)
 
 st.write("Am evaluat modelul cu ajutorul acuratetii si a matricei de confuzie")
