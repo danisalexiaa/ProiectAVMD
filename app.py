@@ -301,6 +301,6 @@ st.write("Matricea de confuzie model XGBoost:")
 st.write(conf_matrix_xgb)
 
 # Vizualizarea importanței caracteristicilor
-st.subheader('Importanța Caracteristicilor')
+st.subheader('Importanta caracteristicilor')
 xgb.plot_importance(model_xgb)
 st.pyplot()
