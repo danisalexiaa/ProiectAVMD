@@ -16,6 +16,9 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
+# XGB
+import xgboost as xgb
+
 import streamlit as st
 
 from sklearn.model_selection import train_test_split
@@ -277,3 +280,27 @@ st.write("Matricea de confuzie:")
 st.write(conf_matrix)
 st.write("""Pentru matricea de confuzie, se observa ca majoritatea valorilor au fost prezise corect. Ca exemplu:
 Pe prima linie, corespondenta nivelului 'Scazut', 26 de predictii au fost corecte pentru riscul scazut, una gresita, etichetata ca 'Mediu', 3 gresite, etichetate ca 'Ridicat', si 0 gresite pentru categoria 'Necunoscut'""")
+
+
+# Crearea și antrenarea modelului XGBoost
+st.subheader('Antrenare Model XGBoost')
+
+model_xgb = xgb.XGBClassifier(use_label_encoder=False, eval_metric='mlogloss')
+model_xgb.fit(X_train_scaled, y_train)
+
+# Predicții pe setul de test
+y_pred_xgb = model_xgb.predict(X_test_scaled)
+
+# Evaluare model
+accuracy_xgb = accuracy_score(y_test, y_pred_xgb)
+conf_matrix_xgb = confusion_matrix(y_test, y_pred_xgb)
+
+# Afișarea rezultatului
+st.write(f"Precizia modelului XGBoost: {accuracy_xgb * 100:.2f}%")
+st.write("Matricea de confuzie model XGBoost:")
+st.write(conf_matrix_xgb)
+
+# Vizualizarea importanței caracteristicilor
+st.subheader('Importanța Caracteristicilor')
+xgb.plot_importance(model_xgb)
+st.pyplot()
