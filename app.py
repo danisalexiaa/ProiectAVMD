@@ -301,6 +301,6 @@ st.write("Matricea de confuzie model XGBoost:")
 st.write(conf_matrix_xgb)
 
 # Vizualizarea importanței caracteristicilor
-st.subheader('Importanta caracteristicilor')
+st.subheader('Importanta caracteristicilor - observam ca f1 este cea mai importanta caracteristica (Credit Amount), indicand faptul ca valoarea creditului are o importantamai mare in evaluarea riscului.')
 xgb.plot_importance(model_xgb)
 st.pyplot()
